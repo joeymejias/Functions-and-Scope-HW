@@ -107,7 +107,7 @@ public class Main {
      */
     public static double getSalePrice(double fullPrice, double discount) {
         // do some math and return the sale price
-        return fullPrice - (fullPrice * discount);
+        return Math.round( (fullPrice - (fullPrice * discount)) * 100 ) / 100.00;
     }
 
 
