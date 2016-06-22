@@ -1,3 +1,6 @@
+import java.text.DecimalFormat;
+import java.util.Arrays;
+
 /**
  * Functions and Scope Homework
  * Created by charlie on 6/21/16.
@@ -11,10 +14,10 @@ public class Main {
         // Pretend you're running an online store. Complete the "helper" methods below and call them here in main().
 
         // 1) Complete the setStoreName() method below and use it to save your store's name
-        setStoreName("put your store's name here, e.g. Bob's Discount Warehouse");
+        setStoreName("Joey's");
 
         // 2) Complete the greetCustomer() method below
-        String greeting = greetCustomer("put a customer name here");
+        String greeting = greetCustomer("Drew, Alan, and Charlie");
         System.out.println(greeting);
 
 
@@ -47,7 +50,11 @@ public class Main {
         // *** BONUS ***
         // 6) See if you can modify the methods that return a double so that the returned value is rounded
         //    to 2 decimal places (e.g. $59.99 rather than $59.992499999)
-        //
+        DecimalFormat numberFormat = new DecimalFormat("#.00");
+        System.out.println(numberFormat.format(salePrice));
+        System.out.println(numberFormat.format(getSalePrice(24.95, 0.15)));
+        System.out.println(numberFormat.format(clearancePrice));
+        System.out.println(numberFormat.format(salePriceForEachItem));
         // hint - look for a rounding method in the Math class. You may need to combine that with some
         // additional arithmetic. There are other approaches too - feel free to google it.
 
@@ -67,6 +74,8 @@ public class Main {
     public static void setStoreName(String name) {
         // update the value of mStoreName, then explain in a comment why you can access that variable
         // from within the scope of this method, since mStoreName is NOT local to this method.
+        mStoreName = name;
+        //Can be accessed because contained within the same class and outside the main method and its access modifier is public.
     }
 
 
@@ -81,6 +90,10 @@ public class Main {
      */
     public static String greetCustomer(String customerName) {
         // do some concatenation and return the result
+        String sentence = "Hi, " + customerName;
+        sentence = sentence.concat(" welcome to " + mStoreName + "!");
+        System.out.println(sentence);
+        return customerName;
     }
 
 
@@ -94,6 +107,7 @@ public class Main {
      */
     public static double getSalePrice(double fullPrice, double discount) {
         // do some math and return the sale price
+        return fullPrice - (fullPrice * discount);
     }
 
 
@@ -107,7 +121,7 @@ public class Main {
      */
     public static double getClearancePrice(double fullPrice, double discount) {
         // A) calculate the sale price, then B) take off the extra 50% to get the clearance price
-
+        return .5 * getSalePrice(fullPrice, discount);
         // hint - consider the DRY principle: Don't Repeat Yourself!
         // can you use the getSalePrice() method here to avoid repeating logic you've already written?
     }
@@ -131,6 +145,17 @@ public class Main {
     public static double getBulkDiscount(int quantityPurchased) {
         // there are multiple ways to do this - we discussed a situation where the remainder from
         // division is truncated (removed). Can you use that to help you here?
+        double discount = 0;
+        if (quantityPurchased < 5){
+            discount = 0;
+        } else if (quantityPurchased >= 5 && quantityPurchased <= 9){
+            discount = 0.05;
+        } else if (quantityPurchased >= 10 && quantityPurchased <= 14){
+            discount = 0.1;
+        } else if (quantityPurchased >= 15 || quantityPurchased <= 19){
+            discount = 0.15;
+        }
+        return discount;
     }
 
 
@@ -144,5 +169,7 @@ public class Main {
         // In order to print each item you'll need to loop through all the items.
         // We haven't covered loops yet, so challenge yourself to figure it out by googling.
         // If you don't get it, no worries! We'll cover loops tomorrow.
+        System.out.print(Arrays.toString(items));
     }
+
 }
